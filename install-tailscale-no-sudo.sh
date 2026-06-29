@@ -37,10 +37,10 @@ echo "Detected package manager: $PKG"
 
 # Install dependencies
 if [ "$PKG" = "apt" ]; then
-    sudo apt update -y
-    sudo apt install -y curl jq openssl unattended-upgrades
+    apt update -y
+    apt install -y curl jq openssl unattended-upgrades
 else
-    sudo $PKG install -y curl jq openssl
+    $PKG install -y curl jq openssl
 fi
 
 # Install Tailscale
@@ -53,8 +53,8 @@ fi
 
 # Enable auto updates
 if [ "$PKG" = "apt" ]; then
-    sudo apt install -y unattended-upgrades
-    sudo dpkg-reconfigure -f noninteractive unattended-upgrades
+    apt install -y unattended-upgrades
+    dpkg-reconfigure -f noninteractive unattended-upgrades
 fi
 
 # Detect location
@@ -69,19 +69,19 @@ HOSTNAME="exitnode-$CITY-$SUFFIX"
 echo "Hostname will be: $HOSTNAME"
 
 # Enable IP forwarding
-sudo tee /etc/sysctl.d/99-tailscale-exit-node.conf > /dev/null <<EOF
+tee /etc/sysctl.d/99-tailscale-exit-node.conf > /dev/null <<EOF
 net.ipv4.ip_forward=1
 net.ipv6.conf.all.forwarding=1
 EOF
 
-sudo sysctl --system > /dev/null
+sysctl --system > /dev/null
 
 # Start service
-sudo systemctl enable --now tailscaled
+systemctl enable --now tailscaled
 
 echo "Connecting to Tailscale..."
 
-sudo tailscale up \
+tailscale up \
 --authkey=$AUTH_KEY \
 --hostname=$HOSTNAME \
 --advertise-exit-node \
