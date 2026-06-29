@@ -26,7 +26,7 @@ this took afew tries to get right, but here's all in one script:
           export AUTH_KEY="your AUTH key"
           export API_KEY="your API key"
           
-          curl -fsSL https://raw.githubusercontent.com/sneakysniper12/my-tailscale-auto-build-script/main/install-tailscale.sh | sudo AUTH_KEY="$AUTH_KEY" API_KEY="$API_KEY" bash
+          curl -fsSL https://raw.githubusercontent.com/sneakysniper12/my-tailscale-auto-build-script/main/install-tailscale-no-sudo.sh | sudo AUTH_KEY="$AUTH_KEY" API_KEY="$API_KEY" bash
 
 
 It handles:
